@@ -37,6 +37,7 @@
     "mapbox-gl": "^3.15.0",
     "mysql2": "^3.11.3",
     "next": "15.1.6",
+    "openai": "^6.2.0",
     "pgvector": "^0.2.1",
     "postcss": "^8.4.33",
     "prettier": "^3.3.3",
