@@ -1,0 +1,1 @@
+ALTER TABLE "phenotypes" ADD COLUMN "distribution_geojson" jsonb;
