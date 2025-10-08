@@ -36,12 +36,13 @@ async function main() {
   console.log("\n🔄 Starting embedding generation for existing phenotypes...\n");
 
   // Get all phenotypes without embeddings
-  const phenotypes = await sql<Phenotype[]>`
+  const result = await sql`
     SELECT id, name, image_url, male_image_url, female_image_url
     FROM phenotypes
     WHERE embedding IS NULL
     ORDER BY name ASC
   `;
+  const phenotypes = result as Phenotype[];
 
   if (phenotypes.length === 0) {
     console.log("✅ All phenotypes already have embeddings!");

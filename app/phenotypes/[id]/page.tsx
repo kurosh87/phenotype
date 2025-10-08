@@ -46,7 +46,7 @@ async function getPhenotype(id: string): Promise<PhenotypeDetail | null> {
       WHERE id = ${id}
       LIMIT 1
     `;
-    return result[0] || null;
+    return (result[0] as PhenotypeDetail) || null;
   } catch (error) {
     console.error("Error fetching phenotype:", error);
     return null;
@@ -56,7 +56,7 @@ async function getPhenotype(id: string): Promise<PhenotypeDetail | null> {
 export default async function PhenotypeDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const user = await stackServerApp.getUser();
 
@@ -64,7 +64,8 @@ export default async function PhenotypeDetailPage({
     redirect("/handler/sign-in");
   }
 
-  const phenotype = await getPhenotype(params.id);
+  const { id } = await params;
+  const phenotype = await getPhenotype(id);
 
   if (!phenotype) {
     redirect("/phenotypes");

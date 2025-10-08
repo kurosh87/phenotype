@@ -12,7 +12,7 @@ import { ArrowLeft, Download, Upload, Sparkles, TrendingUp } from "lucide-react"
 export default async function AnalysisPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const user = await stackServerApp.getUser();
 
@@ -20,7 +20,8 @@ export default async function AnalysisPage({
     redirect("/handler/sign-in");
   }
 
-  const analysis = await getAnalysisById(params.id, user.id);
+  const { id } = await params;
+  const analysis = await getAnalysisById(id, user.id);
 
   if (!analysis) {
     notFound();
